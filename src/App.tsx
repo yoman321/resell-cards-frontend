@@ -1,11 +1,19 @@
-import "./App.css";
+import { Routes, Route } from "react-router-dom";
 
-function App() {
+import "./App.css";
+import Layout from "./components/layout/Layout.tsx";
+
+const App = () => {
   return (
-    <>
-      <div>something</div>
-    </>
+    <Layout>
+      <Routes>
+        <Route path="/" />
+        <Route path="/inventory" />
+        <Route path="contact_us" />
+        <Route path="login" />
+      </Routes>
+    </Layout>
   );
-}
+};
 
 export default App;
