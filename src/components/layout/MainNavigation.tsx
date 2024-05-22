@@ -21,8 +21,8 @@ const MainNavigation = () => {
             <li className="ms-7">
               <Link to="/login">Login</Link>
             </li>
-            <li>
-              <ModeToggle className="ms-7" />
+            <li className="ms-7">
+              <ModeToggle />
             </li>
           </ul>
         </nav>
