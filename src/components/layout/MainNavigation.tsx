@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 
+import { ModeToggle } from "../theme/ThemeModeToggle";
+
 const MainNavigation = () => {
   return (
     <div className="rounded-md">
@@ -18,6 +20,9 @@ const MainNavigation = () => {
             </li>
             <li className="ms-7">
               <Link to="/login">Login</Link>
+            </li>
+            <li>
+              <ModeToggle className="ms-7" />
             </li>
           </ul>
         </nav>

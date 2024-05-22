@@ -1,6 +1,7 @@
 import React from "react";
 
 import MainNavigation from "./MainNavigation.tsx";
+import { ThemeProvider } from "../theme/ThemeProvider.tsx";
 
 interface Props {
   children: React.ReactElement;
@@ -8,10 +9,10 @@ interface Props {
 
 const Layout = ({ children }: Props) => {
   return (
-    <div className="w-full h-full">
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <MainNavigation />
       {children}
-    </div>
+    </ThemeProvider>
   );
 };
 
