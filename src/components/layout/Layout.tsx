@@ -1,17 +1,13 @@
-import React from "react";
-
 import MainNavigation from "./MainNavigation.tsx";
+import PageComponentsLayout from "./PageComponentsLayout.tsx";
 import { ThemeProvider } from "../theme/ThemeProvider.tsx";
-
-interface Props {
-  children: React.ReactElement;
-}
+import { Props } from "../../interfaces/Interface.tsx";
 
 const Layout = ({ children }: Props) => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <MainNavigation />
-      {children}
+      <PageComponentsLayout>{children}</PageComponentsLayout>
     </ThemeProvider>
   );
 };

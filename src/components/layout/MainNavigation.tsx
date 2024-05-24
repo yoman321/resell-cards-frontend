@@ -4,7 +4,7 @@ import { ModeToggle } from "../theme/ThemeModeToggle";
 
 const MainNavigation = () => {
   return (
-    <div className="rounded-md">
+    <div className="rounded-md mb-8">
       <header className="h-20 flex items-center justify-between px-3">
         <h3 className="text-5xl">Resell Cards</h3>
         <nav>
