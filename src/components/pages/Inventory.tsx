@@ -33,7 +33,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { string } from "prop-types";
 
 //dummy data to be deleted later
 type Card = {
@@ -159,11 +158,11 @@ const Inventory = () => {
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter cards..."
-          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("email")?.setFilterValue(event.target.value)
+            table.getColumn("name")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="max-w-sm bg-input"
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -192,7 +191,7 @@ const Inventory = () => {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="rounded-md border bg-gray-700">
+      <div className="rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
