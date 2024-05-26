@@ -5,9 +5,9 @@ import { Props } from "../../interfaces/Interface.tsx";
 const Layout = ({ children }: Props) => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <MainNavigation />
-      <div className="flex justify-center rounded-md w-full">
-        <div className="w-10/12">{children}</div>
+      <div className="h-full">
+        <MainNavigation />
+        <div className="h-5/6 rounded-md flex justify-center">{children}</div>
       </div>
     </ThemeProvider>
   );
