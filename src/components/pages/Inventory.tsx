@@ -58,6 +58,41 @@ const data: Card[] = [
     edition: "Eldraine",
     value: 12,
   },
+  {
+    id: "m5gr8423",
+    name: "Another Card Name",
+    type: "Enchantment",
+    edition: "Eldraine",
+    value: 12,
+  },
+  {
+    id: "m5gr8423",
+    name: "Another Card Name",
+    type: "Enchantment",
+    edition: "Eldraine",
+    value: 12,
+  },
+  {
+    id: "m5gr8423",
+    name: "Another Card Name",
+    type: "Enchantment",
+    edition: "Eldraine",
+    value: 12,
+  },
+  {
+    id: "m5gr8423",
+    name: "Another Card Name",
+    type: "Enchantment",
+    edition: "Eldraine",
+    value: 12,
+  },
+  {
+    id: "m5gr8423",
+    name: "Another Card Name",
+    type: "Enchantment",
+    edition: "Eldraine",
+    value: 12,
+  },
 ];
 
 const columns: ColumnDef<Card>[] = [
@@ -155,6 +190,7 @@ const Inventory = () => {
 
   return (
     <div className="w-full">
+      <h1 className="flex justify-start font-bold text-xl mb-3">Inventory</h1>
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter cards..."
