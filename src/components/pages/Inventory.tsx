@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -30,67 +30,34 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Card } from "../ui/card";
 
-//dummy data to be deleted later
+const MTG_CARD_NAME_STRING = "mtgCardName";
+const MTG_CARD_TYPE_STRING = "mtgCardType";
+const MTG_CARD_EDITION_STRING = "mtgCardEdition";
+const MTG_CARD_VALUE = "mtgCardValue";
+
 type Card = {
-  id: string;
-  name: string;
-  type: string;
-  edition: string;
+  mtgCardName: string;
+  mtgCardType: string;
+  mtgCardEdition: string;
   value: number;
 };
 
-const data: Card[] = [
-  {
-    id: "m5gr84i9",
-    name: "A Card",
-    type: "Artifact Creature",
-    edition: "Amonkhet",
-    value: 23,
-  },
-  {
-    id: "m5gr8423",
-    name: "Another Card Name",
-    type: "Enchantment",
-    edition: "Eldraine",
-    value: 12,
-  },
-  {
-    id: "m5gr8423",
-    name: "Another Card Name",
-    type: "Enchantment",
-    edition: "Eldraine",
-    value: 12,
-  },
-  {
-    id: "m5gr8423",
-    name: "Another Card Name",
-    type: "Enchantment",
-    edition: "Eldraine",
-    value: 12,
-  },
-  {
-    id: "m5gr8423",
-    name: "Another Card Name",
-    type: "Enchantment",
-    edition: "Eldraine",
-    value: 12,
-  },
-  {
-    id: "m5gr8423",
-    name: "Another Card Name",
-    type: "Enchantment",
-    edition: "Eldraine",
-    value: 12,
-  },
-  {
-    id: "m5gr8423",
-    name: "Another Card Name",
-    type: "Enchantment",
-    edition: "Eldraine",
-    value: 12,
-  },
-];
+// const defaultCardsData: Card[] = [
+//   {
+//     mtgCardName: "A Card",
+//     mtgCardType: "Artifact Creature",
+//     mtgCardEdition: "Amonkhet",
+//     value: 23,
+//   },
+//   {
+//     mtgCardName: "Another Card Name",
+//     mtgCardType: "Enchantment",
+//     mtgCardEdition: "Eldraine",
+//     value: 12,
+//   },
+// ];
 
 const columns: ColumnDef<Card>[] = [
   {
@@ -116,7 +83,7 @@ const columns: ColumnDef<Card>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "name",
+    accessorKey: MTG_CARD_NAME_STRING,
     header: ({ column }) => {
       return (
         <Button
@@ -128,23 +95,23 @@ const columns: ColumnDef<Card>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => <div>{row.getValue("name")}</div>,
+    cell: ({ row }) => <div>{row.getValue(MTG_CARD_NAME_STRING)}</div>,
   },
   {
-    accessorKey: "type",
+    accessorKey: MTG_CARD_TYPE_STRING,
     header: "Type",
-    cell: ({ row }) => <div>{row.getValue("type")}</div>,
+    cell: ({ row }) => <div>{row.getValue(MTG_CARD_TYPE_STRING)}</div>,
   },
   {
-    accessorKey: "edition",
+    accessorKey: MTG_CARD_EDITION_STRING,
     header: "Edition",
-    cell: ({ row }) => <div>{row.getValue("edition")}</div>,
+    cell: ({ row }) => <div>{row.getValue(MTG_CARD_EDITION_STRING)}</div>,
   },
   {
-    accessorKey: "value",
+    accessorKey: MTG_CARD_VALUE,
     header: () => <div className="text-right">Value</div>,
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("value"));
+      const amount = parseFloat(row.getValue(MTG_CARD_VALUE));
 
       // Format the amount as a dollar amount
       const formatted = new Intl.NumberFormat("en-US", {
@@ -158,6 +125,7 @@ const columns: ColumnDef<Card>[] = [
 ];
 
 const Inventory = () => {
+  const [data, setData] = React.useState([]);
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -184,16 +152,44 @@ const Inventory = () => {
       rowSelection,
     },
   });
+  //dummy fetch from api
+  const fetchData = () => {
+    fetch("http://localhost:8080/api/mtg_inventory", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
 
+        // const json = data.map((item: string) => JSON.parse(item));
+        // console.log(data);
+        // const convertedData: Array<Card> = json.map((item: string) => ({
+        //   value: parseInt(item.value),
+        // }));
+        setData(data);
+      });
+  };
   return (
     <div className="w-10/12">
+      <Button onClick={fetchData}>something</Button>
       <h1 className="flex justify-start font-bold text-xl mb-3">Inventory</h1>
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter cards..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+          value={
+            (table
+              .getColumn(MTG_CARD_NAME_STRING)
+              ?.getFilterValue() as string) ?? ""
+          }
           onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
+            table
+              .getColumn(MTG_CARD_NAME_STRING)
+              ?.setFilterValue(event.target.value)
           }
           className="max-w-sm bg-input"
         />
