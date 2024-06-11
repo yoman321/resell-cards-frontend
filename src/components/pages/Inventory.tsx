@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -36,6 +36,7 @@ const MTG_CARD_NAME_STRING = "mtgCardName";
 const MTG_CARD_TYPE_STRING = "mtgCardType";
 const MTG_CARD_EDITION_STRING = "mtgCardEdition";
 const MTG_CARD_VALUE = "mtgCardValue";
+const MTG_CARD_INVENTORY_API = "http://localhost:8080/api/mtg_inventory";
 
 type Card = {
   mtgCardName: string;
@@ -43,21 +44,6 @@ type Card = {
   mtgCardEdition: string;
   value: number;
 };
-
-// const defaultCardsData: Card[] = [
-//   {
-//     mtgCardName: "A Card",
-//     mtgCardType: "Artifact Creature",
-//     mtgCardEdition: "Amonkhet",
-//     value: 23,
-//   },
-//   {
-//     mtgCardName: "Another Card Name",
-//     mtgCardType: "Enchantment",
-//     mtgCardEdition: "Eldraine",
-//     value: 12,
-//   },
-// ];
 
 const columns: ColumnDef<Card>[] = [
   {
@@ -152,31 +138,26 @@ const Inventory = () => {
       rowSelection,
     },
   });
-  //dummy fetch from api
-  const fetchData = () => {
-    fetch("http://localhost:8080/api/mtg_inventory", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
 
-        // const json = data.map((item: string) => JSON.parse(item));
-        // console.log(data);
-        // const convertedData: Array<Card> = json.map((item: string) => ({
-        //   value: parseInt(item.value),
-        // }));
-        setData(data);
+  //should this be in its own folder?
+  useEffect(() => {
+    const fetchMtgCards = async () => {
+      const data = await fetch(MTG_CARD_INVENTORY_API, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
-  };
+
+      data.json().then((res) => {
+        setData(res);
+      });
+    };
+    fetchMtgCards();
+  }, []);
+
   return (
     <div className="w-10/12">
-      <Button onClick={fetchData}>something</Button>
       <h1 className="flex justify-start font-bold text-xl mb-3">Inventory</h1>
       <div className="flex items-center py-4">
         <Input
