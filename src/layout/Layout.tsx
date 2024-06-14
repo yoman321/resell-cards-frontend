@@ -1,6 +1,6 @@
 import MainNavigation from "./MainNavigation.tsx";
-import { ThemeProvider } from "../theme/ThemeProvider.tsx";
-import { Props } from "../../interfaces/Interface.tsx";
+import { ThemeProvider } from "../components/theme/ThemeProvider.tsx";
+import { Props } from "../interfaces/Interface.tsx";
 
 const Layout = ({ children }: Props) => {
   return (

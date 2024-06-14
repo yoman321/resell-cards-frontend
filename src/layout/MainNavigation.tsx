@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { ModeToggle } from "../theme/ThemeModeToggle";
+import { ModeToggle } from "../components/theme/ThemeModeToggle";
 
 const MainNavigation = () => {
   return (

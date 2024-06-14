@@ -30,22 +30,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Card } from "../ui/card";
 
-const MTG_CARD_NAME_STRING = "mtgCardName";
-const MTG_CARD_TYPE_STRING = "mtgCardType";
-const MTG_CARD_EDITION_STRING = "mtgCardEdition";
-const MTG_CARD_VALUE = "mtgCardValue";
-const MTG_CARD_INVENTORY_API = "http://localhost:8080/api/mtg_inventory";
+import {
+  MTG_CARD_NAME_STRING, MTG_CARD_TYPE_STRING,
+  MTG_CARD_EDITION_STRING, MTG_CARD_VALUE, MTG_CARD_INVENTORY_API,
+  MtgCard
+} from "@/configs/MtgInventoryConfigs";
 
-type Card = {
-  mtgCardName: string;
-  mtgCardType: string;
-  mtgCardEdition: string;
-  value: number;
-};
+import { useMtgInventoryStore } from "@/store/MtgInventoryStore";
 
-const columns: ColumnDef<Card>[] = [
+
+const columns: ColumnDef<MtgCard>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -111,7 +106,6 @@ const columns: ColumnDef<Card>[] = [
 ];
 
 const Inventory = () => {
-  const [data, setData] = React.useState([]);
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -119,6 +113,9 @@ const Inventory = () => {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+
+  const mtgInventoryStore = useMtgInventoryStore();
+  const data = mtgInventoryStore.mtgInventory;
 
   const table = useReactTable({
     data,
@@ -139,21 +136,26 @@ const Inventory = () => {
     },
   });
 
-  //should this be in its own folder?
-  useEffect(() => {
-    const fetchMtgCards = async () => {
-      const data = await fetch(MTG_CARD_INVENTORY_API, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
 
-      data.json().then((res) => {
-        setData(res);
-      });
-    };
-    fetchMtgCards();
+  useEffect(() => {
+    try {
+      const fetchMtgCards = async () => {
+        const data = await fetch(MTG_CARD_INVENTORY_API, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        data.json().then((res) => {
+          mtgInventoryStore.updateMtgInventory(res);
+        });
+      };
+      fetchMtgCards();
+    }
+    catch (error) {
+      console.error("Failed to fetch Mtg Cards Inventory: ", error);
+    }
   }, []);
 
   return (
@@ -212,9 +214,9 @@ const Inventory = () => {
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                     </TableHead>
                   );
                 })}
