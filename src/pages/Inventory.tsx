@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -33,11 +33,11 @@ import {
 
 import {
   MTG_CARD_NAME_STRING, MTG_CARD_TYPE_STRING,
-  MTG_CARD_EDITION_STRING, MTG_CARD_VALUE, MTG_CARD_INVENTORY_API,
+  MTG_CARD_EDITION_STRING, MTG_CARD_VALUE,
   MtgCard
 } from "@/configs/MtgInventoryConfigs";
 
-import { useMtgInventoryStore } from "@/store/MtgInventoryStore";
+import { fetchMtgInventory } from "@/hooks/MtgInventoryHooks";
 
 
 const columns: ColumnDef<MtgCard>[] = [
@@ -114,8 +114,7 @@ const Inventory = () => {
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
-  const mtgInventoryStore = useMtgInventoryStore();
-  const data = mtgInventoryStore.mtgInventory;
+  const data = fetchMtgInventory();
 
   const table = useReactTable({
     data,
@@ -135,28 +134,6 @@ const Inventory = () => {
       rowSelection,
     },
   });
-
-
-  useEffect(() => {
-    try {
-      const fetchMtgCards = async () => {
-        const data = await fetch(MTG_CARD_INVENTORY_API, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        data.json().then((res) => {
-          mtgInventoryStore.updateMtgInventory(res);
-        });
-      };
-      fetchMtgCards();
-    }
-    catch (error) {
-      console.error("Failed to fetch Mtg Cards Inventory: ", error);
-    }
-  }, []);
 
   return (
     <div className="w-10/12">
