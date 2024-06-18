@@ -1,7 +1,11 @@
 import { create } from 'zustand';
 
-import { MTG_CARD_INVENTORY_API, MtgCard } from '@/configs/MtgInventoryConfigs';
-import { MtgInventoryState } from "@/interfaces/MtgInventoryInterface"
+import { MtgCard } from '../types/MtgInventoryTypes.tsx';
+
+interface MtgInventoryState {
+  mtgInventory: MtgCard[],
+  updateMtgInventory: (update: MtgCard[]) => void,
+}
 
 const initialMtgInventoryStoreState: MtgCard[] = [
   {
