@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 
 import "./App.css";
-import Layout from "./components/layout/Layout.tsx";
-import Inventory from "./components/pages/Inventory.tsx";
-import Login from "./components/pages/Login.tsx";
+import Layout from "./layout/Layout.tsx";
+import Inventory from "./pages/Inventory.tsx";
+import Login from "./pages/Login.tsx";
 
 const App = () => {
   return (

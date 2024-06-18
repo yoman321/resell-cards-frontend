@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -31,68 +31,16 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-//dummy data to be deleted later
-type Card = {
-  id: string;
-  name: string;
-  type: string;
-  edition: string;
-  value: number;
-};
+import {
+  MTG_CARD_NAME_STRING, MTG_CARD_TYPE_STRING,
+  MTG_CARD_EDITION_STRING, MTG_CARD_VALUE,
+  MtgCard
+} from "@/features/mtg-inventory-feature/types/MtgInventoryTypes.tsx";
 
-const data: Card[] = [
-  {
-    id: "m5gr84i9",
-    name: "A Card",
-    type: "Artifact Creature",
-    edition: "Amonkhet",
-    value: 23,
-  },
-  {
-    id: "m5gr8423",
-    name: "Another Card Name",
-    type: "Enchantment",
-    edition: "Eldraine",
-    value: 12,
-  },
-  {
-    id: "m5gr8423",
-    name: "Another Card Name",
-    type: "Enchantment",
-    edition: "Eldraine",
-    value: 12,
-  },
-  {
-    id: "m5gr8423",
-    name: "Another Card Name",
-    type: "Enchantment",
-    edition: "Eldraine",
-    value: 12,
-  },
-  {
-    id: "m5gr8423",
-    name: "Another Card Name",
-    type: "Enchantment",
-    edition: "Eldraine",
-    value: 12,
-  },
-  {
-    id: "m5gr8423",
-    name: "Another Card Name",
-    type: "Enchantment",
-    edition: "Eldraine",
-    value: 12,
-  },
-  {
-    id: "m5gr8423",
-    name: "Another Card Name",
-    type: "Enchantment",
-    edition: "Eldraine",
-    value: 12,
-  },
-];
+import { fetchMtgInventory } from "@/features/mtg-inventory-feature/hooks/MtgInventoryHooks.tsx";
 
-const columns: ColumnDef<Card>[] = [
+
+const columns: ColumnDef<MtgCard>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -116,7 +64,7 @@ const columns: ColumnDef<Card>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "name",
+    accessorKey: MTG_CARD_NAME_STRING,
     header: ({ column }) => {
       return (
         <Button
@@ -128,23 +76,23 @@ const columns: ColumnDef<Card>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => <div>{row.getValue("name")}</div>,
+    cell: ({ row }) => <div>{row.getValue(MTG_CARD_NAME_STRING)}</div>,
   },
   {
-    accessorKey: "type",
+    accessorKey: MTG_CARD_TYPE_STRING,
     header: "Type",
-    cell: ({ row }) => <div>{row.getValue("type")}</div>,
+    cell: ({ row }) => <div>{row.getValue(MTG_CARD_TYPE_STRING)}</div>,
   },
   {
-    accessorKey: "edition",
+    accessorKey: MTG_CARD_EDITION_STRING,
     header: "Edition",
-    cell: ({ row }) => <div>{row.getValue("edition")}</div>,
+    cell: ({ row }) => <div>{row.getValue(MTG_CARD_EDITION_STRING)}</div>,
   },
   {
-    accessorKey: "value",
+    accessorKey: MTG_CARD_VALUE,
     header: () => <div className="text-right">Value</div>,
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("value"));
+      const amount = parseFloat(row.getValue(MTG_CARD_VALUE));
 
       // Format the amount as a dollar amount
       const formatted = new Intl.NumberFormat("en-US", {
@@ -165,6 +113,8 @@ const Inventory = () => {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+
+  const data = fetchMtgInventory();
 
   const table = useReactTable({
     data,
@@ -191,9 +141,15 @@ const Inventory = () => {
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter cards..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+          value={
+            (table
+              .getColumn(MTG_CARD_NAME_STRING)
+              ?.getFilterValue() as string) ?? ""
+          }
           onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
+            table
+              .getColumn(MTG_CARD_NAME_STRING)
+              ?.setFilterValue(event.target.value)
           }
           className="max-w-sm bg-input"
         />
@@ -235,9 +191,9 @@ const Inventory = () => {
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                     </TableHead>
                   );
                 })}
