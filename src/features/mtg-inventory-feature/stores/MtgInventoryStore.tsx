@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 
-import { MtgCard } from '../types/MtgInventoryTypes.tsx';
+import { MtgCard } from '../types/MtgCardTypes.tsx';
+import { MtgCardTypesEnum } from '../enums/MtgCardEnums.tsx';
 
 interface MtgInventoryState {
   mtgInventory: MtgCard[],
@@ -10,8 +11,8 @@ interface MtgInventoryState {
 const initialMtgInventoryStoreState: MtgCard[] = [
   {
     mtgCardName: "A Card Name",
-    mtgCardType: "A Card Type",
-    mtgCardEdition: "A Card Edition",
+    mtgCardType: MtgCardTypesEnum.ARTIFACT,
+    mtgCardEdition: "",
     mtgCardValue: 10
   }
 ]
