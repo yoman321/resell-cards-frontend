@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import { useMtgInventoryStore } from '../stores/MtgInventoryStore.tsx';
-import { MTG_CARD_INVENTORY_API } from '../types/MtgInventoryTypes.tsx';
+import { MTG_CARD_INVENTORY_API } from '../../../configs/GlobalVars.tsx'
 
 
 export const fetchMtgInventory = () => {

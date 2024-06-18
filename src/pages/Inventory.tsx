@@ -31,12 +31,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
+import MtgInventoryAddCardsDialog from "../features/mtg-inventory-feature/components/MtgInventoryAddCardsDialog";
+
+import { MtgCard } from "@/features/mtg-inventory-feature/types/MtgCardTypes.tsx";
 import {
   MTG_CARD_NAME_STRING, MTG_CARD_TYPE_STRING,
   MTG_CARD_EDITION_STRING, MTG_CARD_VALUE,
-  MtgCard
-} from "@/features/mtg-inventory-feature/types/MtgInventoryTypes.tsx";
-
+} from '../configs/GlobalVars.tsx'
 import { fetchMtgInventory } from "@/features/mtg-inventory-feature/hooks/MtgInventoryHooks.tsx";
 
 
@@ -137,6 +138,7 @@ const Inventory = () => {
 
   return (
     <div className="w-10/12">
+      <MtgInventoryAddCardsDialog />
       <h1 className="flex justify-start font-bold text-xl mb-3">Inventory</h1>
       <div className="flex items-center py-4">
         <Input
