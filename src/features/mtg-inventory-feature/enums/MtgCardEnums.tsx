@@ -1,3 +1,3 @@
 export enum MtgCardTypesEnum {
-  ARTIFACT, ENCHANTMENT
+  ARTIFACT = 'Artifact', ENCHANTMENT = 'Enchantment'
 }

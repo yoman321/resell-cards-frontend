@@ -12,7 +12,7 @@ const initialMtgInventoryStoreState: MtgCard[] = [
   {
     mtgCardName: "A Card Name",
     mtgCardType: MtgCardTypesEnum.ARTIFACT,
-    mtgCardEdition: "",
+    mtgCardEdition: "Some edition",
     mtgCardValue: 10
   }
 ]

@@ -11,6 +11,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useMtgAddCardState } from '../stores/MtgAddCardStore';
+import MtgCardTypeCombobox from "./MtgCardTypeCombobox";
 
 const MtgInventoryAddCardsDialog = () => {
 
@@ -42,14 +43,12 @@ const MtgInventoryAddCardsDialog = () => {
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => mtgAddCardState.updateMtgCardName(event.target.value)}
               className="col-span-3" />
           </div>
-          {/* <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="cardEdition" className="text-right">
               Card Type
             </Label>
-            <Input id="cardType" value={mtgAddCardState.mtgCardType}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => mtgAddCardState.updateMtgCardType(event.target.value)}
-              className="col-span-3" />
-          </div> */}
+            <MtgCardTypeCombobox />
+          </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="cardEdition" className="text-right">
               Card Edition
