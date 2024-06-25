@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useMtgAddCardState } from '../stores/MtgAddCardStore';
 import MtgCardTypeCombobox from "./MtgCardTypeCombobox";
+import MtgCardTypeMultiSelect from "./MtgCardTypeMultiSelect";
 
 const MtgInventoryAddCardsDialog = () => {
 
@@ -47,7 +48,7 @@ const MtgInventoryAddCardsDialog = () => {
             <Label htmlFor="cardEdition" className="text-right">
               Card Type
             </Label>
-            <MtgCardTypeCombobox />
+            <MtgCardTypeMultiSelect />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="cardEdition" className="text-right">

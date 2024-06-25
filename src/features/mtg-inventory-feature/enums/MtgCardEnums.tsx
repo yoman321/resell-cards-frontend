@@ -1,3 +1,19 @@
 export enum MtgCardTypesEnum {
-  ARTIFACT = 'Artifact', ENCHANTMENT = 'Enchantment'
+  ARTIFACT = 'Artifact',
+  ENCHANTMENT = 'Enchantment',
+  INSTANT = 'Instant',
+  LAND = 'Land',
+  PLANESWALKER = 'Planeswalker',
+  SORCERY = 'Sorcery',
+  TRIBAL = 'Tribal',
+  PLANE = 'Plane',
+  SCHEME = 'Scheme',
+  VANGUARD = 'Vanguard',
+  PHENOMENON = 'Phenomenon',
+  CONSPIRACY = 'Conspiracy',
+  TOKEN = 'Token',
+  EMBLEM = 'Emblem',
+  HERO = 'Hero',
+  STCIKER = 'sticker',
+  BATTLE = 'Battle',
 }

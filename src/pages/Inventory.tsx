@@ -39,6 +39,7 @@ import {
   MTG_CARD_EDITION_STRING, MTG_CARD_VALUE,
 } from '../configs/GlobalVars.tsx'
 import { fetchMtgInventory } from "@/features/mtg-inventory-feature/hooks/MtgInventoryHooks.tsx";
+import MtgCardTypeMultiSelect from "@/features/mtg-inventory-feature/components/MtgCardTypeMultiSelect.tsx";
 
 
 const columns: ColumnDef<MtgCard>[] = [
@@ -139,6 +140,7 @@ const Inventory = () => {
   return (
     <div className="w-10/12">
       <MtgInventoryAddCardsDialog />
+      <MtgCardTypeMultiSelect />
       <h1 className="flex justify-start font-bold text-xl mb-3">Inventory</h1>
       <div className="flex items-center py-4">
         <Input
