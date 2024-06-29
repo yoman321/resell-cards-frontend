@@ -6,3 +6,5 @@ export type MtgCard = {
   mtgCardEdition: string;
   mtgCardValue: number | null;
 };
+
+export type CardTypes = Record<"value" | "label", string>;
