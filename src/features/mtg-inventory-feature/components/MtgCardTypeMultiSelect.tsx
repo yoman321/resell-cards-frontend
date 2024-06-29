@@ -1,5 +1,3 @@
-"use client";
-
 import * as React from "react";
 import { X } from "lucide-react";
 
@@ -111,7 +109,7 @@ const MtgCardTypeMultiSelect = ({ className }: ClassNameProps) => {
                         e.preventDefault();
                         e.stopPropagation();
                       }}
-                      onSelect={(value) => {
+                      onSelect={() => {
                         setInputValue("");
                         setSelected((prev) => [...prev, cardType]);
                       }}

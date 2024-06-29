@@ -13,8 +13,9 @@ import { Label } from "@/components/ui/label"
 import { useMtgAddCardState } from '../stores/MtgAddCardStore';
 import MtgCardTypeCombobox from "./MtgCardTypeCombobox";
 import MtgCardTypeMultiSelect from "./MtgCardTypeMultiSelect";
+import { ClassNameProps } from "@/interfaces/PropsInterface";
 
-const MtgInventoryAddCardsDialog = () => {
+const MtgInventoryAddCardsDialog = ({ className }: ClassNameProps) => {
 
   const mtgAddCardState = useMtgAddCardState();
 
@@ -26,7 +27,7 @@ const MtgInventoryAddCardsDialog = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Add Card</Button>
+        <Button variant="outline" className={className}>Add Card</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
