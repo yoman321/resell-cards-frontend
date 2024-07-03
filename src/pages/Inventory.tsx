@@ -31,13 +31,15 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
+import MtgInventoryAddCardsDialog from "../features/mtg-inventory-feature/components/MtgInventoryAddCardsDialog";
+
+import { MtgCard } from "@/features/mtg-inventory-feature/types/MtgCardTypes.tsx";
 import {
   MTG_CARD_NAME_STRING, MTG_CARD_TYPE_STRING,
   MTG_CARD_EDITION_STRING, MTG_CARD_VALUE,
-  MtgCard
-} from "@/features/mtg-inventory-feature/types/MtgInventoryTypes.tsx";
-
+} from '../configs/GlobalVars.tsx'
 import { fetchMtgInventory } from "@/features/mtg-inventory-feature/hooks/MtgInventoryHooks.tsx";
+import MtgCardTypeMultiSelect from "@/features/mtg-inventory-feature/components/MtgCardTypeMultiSelect.tsx";
 
 
 const columns: ColumnDef<MtgCard>[] = [
@@ -153,32 +155,35 @@ const Inventory = () => {
           }
           className="max-w-sm bg-input"
         />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns <ChevronDown className="ml-2 h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className='ml-auto'>
+          <MtgInventoryAddCardsDialog className="mr-1" />
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="ml-auto">
+                Columns <ChevronDown className="ml-2 h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => {
+                  return (
+                    <DropdownMenuCheckboxItem
+                      key={column.id}
+                      className="capitalize"
+                      checked={column.getIsVisible()}
+                      onCheckedChange={(value) =>
+                        column.toggleVisibility(!!value)
+                      }
+                    >
+                      {column.id}
+                    </DropdownMenuCheckboxItem>
+                  );
+                })}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
       <div className="rounded-md border">
         <Table>

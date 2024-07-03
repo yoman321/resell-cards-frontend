@@ -1,8 +1,8 @@
 import MainNavigation from "./MainNavigation.tsx";
 import { ThemeProvider } from "../components/theme/ThemeProvider.tsx";
-import { Props } from "../interfaces/Interface.tsx";
+import { ChildrenProps } from "../interfaces/PropsInterface.tsx"
 
-const Layout = ({ children }: Props) => {
+const Layout = ({ children }: ChildrenProps) => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <div className="h-full">

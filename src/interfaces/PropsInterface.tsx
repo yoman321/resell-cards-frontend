@@ -1,6 +1,10 @@
 import React from "react";
 
-export interface Props {
+export interface ChildrenProps {
   children: React.ReactElement;
+}
+
+export interface ClassNameProps {
+  className?: string;
 }
 
