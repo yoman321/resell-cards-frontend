@@ -11,7 +11,6 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useMtgAddCardState } from '../stores/MtgAddCardStore';
-import MtgCardTypeCombobox from "./MtgCardTypeCombobox";
 import MtgCardTypeMultiSelect from "./MtgCardTypeMultiSelect";
 import { ClassNameProps } from "@/interfaces/PropsInterface";
 
@@ -22,8 +21,7 @@ const MtgInventoryAddCardsDialog = ({ className }: ClassNameProps) => {
   const handleButton = () => {
     console.log(mtgAddCardState.mtgCardName, mtgAddCardState.mtgCardEdition, mtgAddCardState.mtgCardValue);
   }
-  const handleChange = (field: string, event: React.ChangeEvent<HTMLInputElement>) => {
-  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
