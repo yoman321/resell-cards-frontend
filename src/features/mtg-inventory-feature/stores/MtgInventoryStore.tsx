@@ -8,7 +8,7 @@ interface MtgInventoryState {
   updateMtgInventory: (update: MtgCard[]) => void,
 }
 
-const initialMtgInventoryStoreState: MtgCard[] = [
+export const initialMtgInventoryStoreState: MtgCard[] = [
   {
     mtgCardName: "A Card Name",
     mtgCardType: MtgCardTypesEnum.ARTIFACT,
