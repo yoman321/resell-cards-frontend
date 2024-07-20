@@ -53,7 +53,6 @@ const MtgCardTypeMultiSelect = ({ className }: ClassNameProps) => {
     (cardType) => !selected.includes(cardType)
   );
 
-  console.log(selectables, selected, inputValue);
 
   return (
     <Command
