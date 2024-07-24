@@ -20,7 +20,7 @@ const CARD_TYPES = Object.entries(MtgCardTypesEnum)
 const MtgCardTypeMultiSelect = ({ className }: ClassNameProps) => {
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [open, setOpen] = React.useState(false);
-  const [selected, setSelected] = React.useState<CardTypes[]>([CARD_TYPES[1]]);
+  const [selected, setSelected] = React.useState<CardTypes[]>([]);
   const [inputValue, setInputValue] = React.useState("");
 
   const handleUnselect = React.useCallback((cardType: CardTypes) => {
@@ -40,7 +40,6 @@ const MtgCardTypeMultiSelect = ({ className }: ClassNameProps) => {
             });
           }
         }
-        // This is not a default behaviour of the <input /> field
         if (e.key === "Escape") {
           input.blur();
         }

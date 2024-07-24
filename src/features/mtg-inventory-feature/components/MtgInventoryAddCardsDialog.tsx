@@ -10,16 +10,16 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useMtgAddCardState } from '../stores/MtgAddCardStore';
+import { useAddCardStore } from '../stores/AddCardStore';
 import MtgCardTypeMultiSelect from "./MtgCardTypeMultiSelect";
 import { ClassNameProps } from "@/interfaces/PropsInterface";
 
 const MtgInventoryAddCardsDialog = ({ className }: ClassNameProps) => {
 
-  const mtgAddCardState = useMtgAddCardState();
+  const cardStore = useAddCardStore();
 
-  const handleButton = () => {
-    console.log(mtgAddCardState.mtgCardName, mtgAddCardState.mtgCardEdition, mtgAddCardState.mtgCardValue);
+  const handleAddCardButton = () => {
+    console.log("button has been pressed");
   }
 
   return (
@@ -39,8 +39,8 @@ const MtgInventoryAddCardsDialog = ({ className }: ClassNameProps) => {
             <Label htmlFor="cardName" className="text-right">
               Card Name
             </Label>
-            <Input id="cardName" value={mtgAddCardState.mtgCardName}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => mtgAddCardState.updateMtgCardName(event.target.value)}
+            <Input id="cardName" value={cardStore.mtgCardName}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => cardStore.updateMtgCardName(event.target.value)}
               className="col-span-3" />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
@@ -53,23 +53,23 @@ const MtgInventoryAddCardsDialog = ({ className }: ClassNameProps) => {
             <Label htmlFor="cardEdition" className="text-right">
               Card Edition
             </Label>
-            <Input id="cardEdition" value={mtgAddCardState.mtgCardEdition}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => mtgAddCardState.updateMtgCardEdition(event.target.value)}
+            <Input id="cardEdition" value={cardStore.mtgCardEdition}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => cardStore.updateMtgCardEdition(event.target.value)}
               className="col-span-3" />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="cardValue" className="text-right">
               Card Value
             </Label>
-            <Input id="cardValue" value={mtgAddCardState.mtgCardValue ?? ""}
+            <Input id="cardValue" value={cardStore.mtgCardValue ?? ""}
               type="number"
               onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                mtgAddCardState.updateMtgCardValue(!Number.isNaN(event.target.valueAsNumber) ? event.target.valueAsNumber : null)}
+                cardStore.updateMtgCardValue(!Number.isNaN(event.target.valueAsNumber) ? event.target.valueAsNumber : null)}
               className="col-span-3" />
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit" onClick={handleButton}>Save changes</Button>
+          <Button type="submit" onClick={handleAddCardButton}>Save changes</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
