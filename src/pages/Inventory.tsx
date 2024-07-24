@@ -38,7 +38,7 @@ import {
   MTG_CARD_NAME_STRING, MTG_CARD_TYPE_STRING,
   MTG_CARD_EDITION_STRING, MTG_CARD_VALUE,
 } from '../configs/GlobalVars.tsx'
-import { fetchMtgInventory } from "@/features/mtg-inventory-feature/hooks/MtgInventoryHooks.tsx";
+import { fetchMtgInventory } from "@/features/mtg-inventory-feature/stores/MtgInventoryStore.tsx";
 
 
 const columns: ColumnDef<MtgCard>[] = [
