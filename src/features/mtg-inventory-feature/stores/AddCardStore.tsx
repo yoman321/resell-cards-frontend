@@ -21,4 +21,6 @@ export const useAddCardStore = create<MtgCard & AddCardActions>()((set) => ({
   updateMtgCardValue: (cardValue) => set(() => ({ mtgCardValue: cardValue }))
 }))
 
+export const updateMtgInventory = () => {
+}
 

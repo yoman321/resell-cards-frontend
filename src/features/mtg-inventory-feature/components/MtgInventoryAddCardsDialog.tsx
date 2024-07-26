@@ -19,7 +19,10 @@ const MtgInventoryAddCardsDialog = ({ className }: ClassNameProps) => {
   const cardStore = useAddCardStore();
 
   const handleAddCardButton = () => {
-    console.log("button has been pressed");
+    console.log("card name: ", cardStore.mtgCardName)
+    console.log("card type: ", cardStore.mtgCardType);
+    console.log("card edition: ", cardStore.mtgCardEdition)
+    console.log("card value:", cardStore.mtgCardValue);
   }
 
   return (

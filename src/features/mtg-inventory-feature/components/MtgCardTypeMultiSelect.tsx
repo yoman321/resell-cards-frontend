@@ -13,18 +13,20 @@ import { Command as CommandPrimitive } from "cmdk";
 import { ClassNameProps } from "../../../interfaces/PropsInterface"
 import { MtgCardTypesEnum } from "../enums/MtgCardEnums";
 import { CardTypes } from "../types/MtgCardTypes";
+import { useAddCardStore } from "../stores/AddCardStore";
 
 const CARD_TYPES = Object.entries(MtgCardTypesEnum)
   .map(([label, value]) => ({ label, value })) satisfies CardTypes[];
 
 const MtgCardTypeMultiSelect = ({ className }: ClassNameProps) => {
+  const addCardStore = useAddCardStore();
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [open, setOpen] = React.useState(false);
-  const [selected, setSelected] = React.useState<CardTypes[]>([]);
   const [inputValue, setInputValue] = React.useState("");
 
   const handleUnselect = React.useCallback((cardType: CardTypes) => {
-    setSelected((prev) => prev.filter((s) => s.value !== cardType.value));
+    const currCardTypes = addCardStore.mtgCardType?.filter((type) => type !== cardType.value);
+    addCardStore.updateMtgCardType(currCardTypes)
   }, []);
 
   const handleKeyDown = React.useCallback(
