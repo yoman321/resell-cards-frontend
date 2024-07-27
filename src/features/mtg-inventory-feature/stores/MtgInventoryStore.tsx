@@ -52,3 +52,9 @@ export const fetchMtgInventory = () => {
   return mtgInventoryStore.mtgInventory;
 }
 
+const cardsDataTransformer = (cardList) => {
+  const cardTypes = cardList.mtgCardType;
+  cardTypes.map()
+
+}
+

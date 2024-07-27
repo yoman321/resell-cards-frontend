@@ -4,7 +4,7 @@ export type CardTypes = Record<"value" | "label", string>;
 
 export type MtgCard = {
   mtgCardName: string;
-  mtgCardType: CardTypes[];
+  mtgCardType: MtgCardTypesEnum[];
   mtgCardEdition: string;
   mtgCardValue: number | null;
 };

@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 
 import { CardTypes, MtgCard } from '../types/MtgCardTypes';
+import { MtgCardTypesEnum } from '../enums/MtgCardEnums';
 
 interface AddCardActions {
   updateMtgCardName: (updateCardName: MtgCard['mtgCardName']) => void,
@@ -8,7 +9,7 @@ interface AddCardActions {
   updateMtgCardEdition: (updateCardEdition: MtgCard['mtgCardEdition']) => void,
   updateMtgCardValue: (updateCardValue: MtgCard['mtgCardValue']) => void,
 
-  addMtgCardType: (addMtgCardType: CardTypes) => void,
+  addMtgCardType: (addMtgCardType: MtgCardTypesEnum) => void,
 }
 
 export const useAddCardStore = create<MtgCard & AddCardActions>()((set, get) => ({
@@ -18,7 +19,7 @@ export const useAddCardStore = create<MtgCard & AddCardActions>()((set, get) => 
   mtgCardValue: null,
 
   updateMtgCardName: (cardName) => set(() => ({ mtgCardName: cardName })),
-  updateMtgCardType: (cardType) => set((state) => ({ mtgCardType: cardType })),
+  updateMtgCardType: (cardType) => set(() => ({ mtgCardType: cardType })),
   updateMtgCardEdition: (cardEdition) => set(() => ({ mtgCardEdition: cardEdition })),
   updateMtgCardValue: (cardValue) => set(() => ({ mtgCardValue: cardValue })),
 
@@ -29,6 +30,12 @@ export const useAddCardStore = create<MtgCard & AddCardActions>()((set, get) => 
   }))
 }))
 
+export const cardTypeToCardEnumTransformer = () => {
+  const addCardStore = useAddCardStore();
+  const cardTypes = addCardStore.mtgCardType;
+
+
+}
 export const updateMtgInventory = () => {
 }
 
