@@ -20,13 +20,15 @@ const CARD_TYPES = Object.entries(MtgCardTypesEnum)
 
 const MtgCardTypeMultiSelect = ({ className }: ClassNameProps) => {
   const addCardStore = useAddCardStore();
+  const useCardTypes = addCardStore.mtgCardType;
+
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [open, setOpen] = React.useState(false);
+  //  const [selected, setSelected] = React.useState<CardTypes[]>([]);
   const [inputValue, setInputValue] = React.useState("");
 
   const handleUnselect = React.useCallback((cardType: CardTypes) => {
-    const currCardTypes = addCardStore.mtgCardType?.filter((type) => type !== cardType.value);
-    addCardStore.updateMtgCardType(currCardTypes)
+    addCardStore.updateMtgCardType(useCardTypes?.filter((type) => type.value !== cardType.value));
   }, []);
 
   const handleKeyDown = React.useCallback(
@@ -35,11 +37,7 @@ const MtgCardTypeMultiSelect = ({ className }: ClassNameProps) => {
       if (input) {
         if (e.key === "Delete" || e.key === "Backspace") {
           if (input.value === "") {
-            setSelected((prev) => {
-              const newSelected = [...prev];
-              newSelected.pop();
-              return newSelected;
-            });
+            return useCardTypes?.pop();
           }
         }
         if (e.key === "Escape") {
@@ -51,7 +49,7 @@ const MtgCardTypeMultiSelect = ({ className }: ClassNameProps) => {
   );
 
   const selectables = CARD_TYPES.filter(
-    (cardType) => !selected.includes(cardType)
+    (cardType) => !useCardTypes?.includes(cardType)
   );
 
 
@@ -62,10 +60,10 @@ const MtgCardTypeMultiSelect = ({ className }: ClassNameProps) => {
     >
       <div className="group rounded-md border border-input px-3 py-2 text-sm ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
         <div className="flex flex-wrap gap-1">
-          {selected.map((cardType) => {
+          {useCardTypes?.map((cardType) => {
             return (
-              <Badge key={cardType.value} variant="secondary">
-                {cardType.label}
+              <Badge key={cardType.label} variant="secondary">
+                {cardType.value}
                 <button
                   className="ml-1 rounded-full outline-none ring-offset-background focus:ring-2 focus:ring-ring focus:ring-offset-2"
                   onKeyDown={(e) => {
@@ -111,7 +109,7 @@ const MtgCardTypeMultiSelect = ({ className }: ClassNameProps) => {
                       }}
                       onSelect={() => {
                         setInputValue("");
-                        setSelected((prev) => [...prev, cardType]);
+                        addCardStore.addMtgCardType(cardType)
                       }}
                       className={"cursor-pointer"}
                     >

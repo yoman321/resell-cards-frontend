@@ -1,10 +1,11 @@
 import { MtgCardTypesEnum } from "../enums/MtgCardEnums";
 
+export type CardTypes = Record<"value" | "label", string>;
+
 export type MtgCard = {
   mtgCardName: string;
-  mtgCardType?: MtgCardTypesEnum[];
+  mtgCardType: CardTypes[];
   mtgCardEdition: string;
   mtgCardValue: number | null;
 };
 
-export type CardTypes = Record<"value" | "label", string>;
