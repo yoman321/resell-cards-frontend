@@ -2,6 +2,7 @@ import { create } from 'zustand';
 
 import { CardTypes, MtgCard } from '../types/MtgCardTypes';
 import { MtgCardTypesEnum } from '../enums/MtgCardEnums';
+import { MTG_CARD_INVENTORY_API } from '@/configs/GlobalVars';
 
 interface AddCardActions {
   updateMtgCardName: (updateCardName: MtgCard['mtgCardName']) => void,
@@ -30,12 +31,33 @@ export const useAddCardStore = create<MtgCard & AddCardActions>()((set, get) => 
   }))
 }))
 
-export const cardTypeToCardEnumTransformer = () => {
+export const putCardTransformer = () => {
   const addCardStore = useAddCardStore();
-  const cardTypes = addCardStore.mtgCardType;
+  const newCard: MtgCard = {
+    mtgCardName: addCardStore.mtgCardName,
+    mtgCardType: addCardStore.mtgCardType,
+    mtgCardEdition: addCardStore.mtgCardEdition,
+    mtgCardValue: addCardStore.mtgCardValue
+  };
 
-
+  return newCard;
 }
-export const updateMtgInventory = () => {
+export const addCardToInventory = () => {
+
+  try {
+    const putCard = async () => {
+      await fetch(MTG_CARD_INVENTORY_API, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(putCardTransformer),
+      })
+    }
+    putCard();
+  }
+  catch (error) {
+    console.log("Failed put request with error", error);
+  }
 }
 

@@ -13,7 +13,7 @@ interface MtgInventoryState {
 const initialMtgInventoryStoreState: MtgCard[] = [
   {
     mtgCardName: "A Card Name",
-    mtgCardType: MtgCardTypesEnum.ARTIFACT,
+    mtgCardType: [MtgCardTypesEnum.ARTIFACT],
     mtgCardEdition: "Some edition",
     mtgCardValue: 10
   }
@@ -52,9 +52,4 @@ export const fetchMtgInventory = () => {
   return mtgInventoryStore.mtgInventory;
 }
 
-const cardsDataTransformer = (cardList) => {
-  const cardTypes = cardList.mtgCardType;
-  cardTypes.map()
-
-}
 
