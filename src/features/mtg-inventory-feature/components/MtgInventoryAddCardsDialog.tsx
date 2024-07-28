@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useAddCardStore } from '../stores/AddCardStore';
+import { addCardToInventory, useAddCardStore } from '../stores/AddCardStore';
 import MtgCardTypeMultiSelect from "./MtgCardTypeMultiSelect";
 import { ClassNameProps } from "@/interfaces/PropsInterface";
 
@@ -19,10 +19,7 @@ const MtgInventoryAddCardsDialog = ({ className }: ClassNameProps) => {
   const cardStore = useAddCardStore();
 
   const handleAddCardButton = () => {
-    console.log("card name: ", cardStore.mtgCardName)
-    console.log("card type: ", cardStore.mtgCardType);
-    console.log("card edition: ", cardStore.mtgCardEdition)
-    console.log("card value:", cardStore.mtgCardValue);
+    addCardToInventory(cardStore.mtgCardName, cardStore.mtgCardType, cardStore.mtgCardEdition, cardStore.mtgCardValue);
   }
 
   return (

@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { MtgCard } from '../types/MtgCardTypes.tsx';
 import { MtgCardTypesEnum } from '../enums/MtgCardEnums.tsx';
 import { MTG_CARD_INVENTORY_API } from '@/configs/GlobalVars.tsx';
+import { addCardToInventory } from './AddCardStore.tsx';
 
 interface MtgInventoryState {
   mtgInventory: MtgCard[],
@@ -47,7 +48,7 @@ export const fetchMtgInventory = () => {
     catch (error) {
       console.error("Failed to fetch Mtg Cards Inventory: ", error);
     }
-  }, []);
+  }, [addCardToInventory]);
 
   return mtgInventoryStore.mtgInventory;
 }

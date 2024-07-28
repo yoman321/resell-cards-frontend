@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import { CardTypes, MtgCard } from '../types/MtgCardTypes';
+import { MtgCard } from '../types/MtgCardTypes';
 import { MtgCardTypesEnum } from '../enums/MtgCardEnums';
 import { MTG_CARD_INVENTORY_API } from '@/configs/GlobalVars';
 
@@ -31,19 +31,22 @@ export const useAddCardStore = create<MtgCard & AddCardActions>()((set, get) => 
   }))
 }))
 
-export const putCardTransformer = () => {
-  const addCardStore = useAddCardStore();
+export const putNewCardTransformer = (cardName: string, cardType: MtgCardTypesEnum[], cardEdition: string, cardValue: number | null) => {
   const newCard: MtgCard = {
-    mtgCardName: addCardStore.mtgCardName,
-    mtgCardType: addCardStore.mtgCardType,
-    mtgCardEdition: addCardStore.mtgCardEdition,
-    mtgCardValue: addCardStore.mtgCardValue
+    mtgCardName: cardName,
+    mtgCardType: cardType,
+    mtgCardEdition: cardEdition,
+    mtgCardValue: cardValue,
   };
+
+  ///test 
+  console.log(newCard);
 
   return newCard;
 }
-export const addCardToInventory = () => {
 
+export const addCardToInventory = (cardName: string, cardType: MtgCardTypesEnum[], cardEdition: string, cardValue: number | null) => {
+  const newCard = putNewCardTransformer(cardName, cardType, cardEdition, cardValue);
   try {
     const putCard = async () => {
       await fetch(MTG_CARD_INVENTORY_API, {
@@ -51,7 +54,7 @@ export const addCardToInventory = () => {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(putCardTransformer),
+        body: JSON.stringify(newCard),
       })
     }
     putCard();
