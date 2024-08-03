@@ -24,7 +24,6 @@ const MtgCardTypeMultiSelect = ({ className }: ClassNameProps) => {
 
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [open, setOpen] = React.useState(false);
-  //const [selected, setSelected] = React.useState<MtgCardTypesEnum[]>([]);
   const [inputValue, setInputValue] = React.useState("");
 
   const handleUnselect = React.useCallback((cardType: MtgCardTypesEnum) => {

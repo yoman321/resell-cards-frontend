@@ -13,13 +13,15 @@ import { Label } from "@/components/ui/label"
 import { addCardToInventory, useAddCardStore } from '../stores/AddCardStore';
 import MtgCardTypeMultiSelect from "./MtgCardTypeMultiSelect";
 import { ClassNameProps } from "@/interfaces/PropsInterface";
+import { useMtgInventoryStore } from "../stores/MtgInventoryStore";
 
 const MtgInventoryAddCardsDialog = ({ className }: ClassNameProps) => {
 
   const cardStore = useAddCardStore();
+  const inventoryStore = useMtgInventoryStore();
 
   const handleAddCardButton = () => {
-    addCardToInventory(cardStore.mtgCardName, cardStore.mtgCardType, cardStore.mtgCardEdition, cardStore.mtgCardValue);
+    addCardToInventory(cardStore.mtgCardName, cardStore.mtgCardType, cardStore.mtgCardEdition, cardStore.mtgCardValue, inventoryStore.updateMtgInventory);
   }
 
   return (

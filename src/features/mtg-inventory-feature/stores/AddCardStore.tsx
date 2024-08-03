@@ -3,6 +3,7 @@ import { create } from 'zustand';
 import { MtgCard } from '../types/MtgCardTypes';
 import { MtgCardTypesEnum } from '../enums/MtgCardEnums';
 import { MTG_CARD_INVENTORY_API } from '@/configs/GlobalVars';
+import { fetchMtgInventory } from './MtgInventoryStore';
 
 interface AddCardActions {
   updateMtgCardName: (updateCardName: MtgCard['mtgCardName']) => void,
@@ -31,10 +32,10 @@ export const useAddCardStore = create<MtgCard & AddCardActions>()((set, get) => 
   }))
 }))
 
-export const putNewCardTransformer = (cardName: string, cardType: MtgCardTypesEnum[], cardEdition: string, cardValue: number | null) => {
-  const newCard: MtgCard = {
+export const frontendToBackendCardConverter = (cardName: string, cardType: MtgCardTypesEnum[], cardEdition: string, cardValue: number | null) => {
+  const newCard = {
     mtgCardName: cardName,
-    mtgCardType: cardType,
+    mtgCardType: cardType.map(type => type.toUpperCase()),
     mtgCardEdition: cardEdition,
     mtgCardValue: cardValue,
   };
@@ -45,8 +46,9 @@ export const putNewCardTransformer = (cardName: string, cardType: MtgCardTypesEn
   return newCard;
 }
 
-export const addCardToInventory = (cardName: string, cardType: MtgCardTypesEnum[], cardEdition: string, cardValue: number | null) => {
-  const newCard = putNewCardTransformer(cardName, cardType, cardEdition, cardValue);
+export const addCardToInventory = (cardName: string, cardType: MtgCardTypesEnum[], cardEdition: string, cardValue: number | null, updateMtgInventory: (update: MtgCard[]) => void) => {
+  const newCard = frontendToBackendCardConverter(cardName, cardType, cardEdition, cardValue);
+
   try {
     const putCard = async () => {
       await fetch(MTG_CARD_INVENTORY_API, {
@@ -57,7 +59,10 @@ export const addCardToInventory = (cardName: string, cardType: MtgCardTypesEnum[
         body: JSON.stringify(newCard),
       })
     }
-    putCard();
+
+    putCard().then(() => {
+      fetchMtgInventory(updateMtgInventory);
+    });
   }
   catch (error) {
     console.log("Failed put request with error", error);

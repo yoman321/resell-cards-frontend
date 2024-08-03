@@ -38,7 +38,7 @@ import {
   MTG_CARD_NAME_STRING, MTG_CARD_TYPE_STRING,
   MTG_CARD_EDITION_STRING, MTG_CARD_VALUE,
 } from '../configs/GlobalVars.tsx'
-import { fetchMtgInventory } from "@/features/mtg-inventory-feature/stores/MtgInventoryStore.tsx";
+import { useMtgInventoryStore, fetchMtgInventory } from "@/features/mtg-inventory-feature/stores/MtgInventoryStore.tsx";
 
 
 const columns: ColumnDef<MtgCard>[] = [
@@ -115,7 +115,10 @@ const Inventory = () => {
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
-  const data = fetchMtgInventory();
+  const mtgInventory = useMtgInventoryStore();
+  fetchMtgInventory(mtgInventory.updateMtgInventory);
+
+  const data = mtgInventory.mtgInventory;
 
   const table = useReactTable({
     data,
