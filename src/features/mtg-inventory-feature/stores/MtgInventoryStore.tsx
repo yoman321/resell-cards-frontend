@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { MtgCard } from '../types/MtgCardTypes.tsx';
 import { MtgCardTypesEnum } from '../enums/MtgCardEnums.tsx';
 import { MTG_CARD_INVENTORY_API } from '@/configs/GlobalVars.tsx';
-import { addCardToInventory } from './AddCardStore.tsx';
 
 interface MtgInventoryState {
   mtgInventory: MtgCard[],
@@ -27,24 +26,26 @@ export const useMtgInventoryStore = create<MtgInventoryState>()((set) => ({
 }));
 
 export const fetchMtgInventory = (updateMtgInventory: (update: MtgCard[]) => void) => {
-  try {
-    const fetchMtgCards = async () => {
-      const data = await fetch(MTG_CARD_INVENTORY_API, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+  useEffect(() => {
+    try {
+      const fetchMtgCards = async () => {
+        const data = await fetch(MTG_CARD_INVENTORY_API, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
-      data.json().then((res) => {
-        updateMtgInventory(res);
-      });
-    };
-    fetchMtgCards();
-  }
-  catch (error) {
-    console.error("Failed to fetch Mtg Cards Inventory: ", error);
-  }
+        data.json().then((res) => {
+          updateMtgInventory(res);
+        });
+      };
+      fetchMtgCards();
+    }
+    catch (error) {
+      console.error("Failed to fetch Mtg Cards Inventory: ", error);
+    }
+  }, [])
 }
 
 
