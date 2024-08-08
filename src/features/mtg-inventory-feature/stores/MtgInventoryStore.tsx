@@ -26,26 +26,25 @@ export const useMtgInventoryStore = create<MtgInventoryState>()((set) => ({
 }));
 
 export const fetchMtgInventory = (updateMtgInventory: (update: MtgCard[]) => void) => {
-  useEffect(() => {
-    try {
-      const fetchMtgCards = async () => {
-        const data = await fetch(MTG_CARD_INVENTORY_API, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+  try {
+    const fetchMtgCards = async () => {
+      const data = await fetch(MTG_CARD_INVENTORY_API, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-        data.json().then((res) => {
-          updateMtgInventory(res);
-        });
-      };
-      fetchMtgCards();
-    }
-    catch (error) {
-      console.error("Failed to fetch Mtg Cards Inventory: ", error);
-    }
-  }, [])
+      data.json().then((res) => {
+        console.log(res);
+        updateMtgInventory(res);
+      });
+    };
+    fetchMtgCards();
+  }
+  catch (error) {
+    console.error("Failed to fetch Mtg Cards Inventory: ", error);
+  }
 }
 
 

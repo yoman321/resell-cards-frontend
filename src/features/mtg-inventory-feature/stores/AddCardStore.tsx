@@ -32,7 +32,7 @@ export const useAddCardStore = create<MtgCard & AddCardActions>()((set, get) => 
   }))
 }))
 
-export const frontendToBackendCardConverter = (cardName: string, cardType: MtgCardTypesEnum[], cardEdition: string, cardValue: number | null) => {
+export const cardSerializer = (cardName: string, cardType: MtgCardTypesEnum[], cardEdition: string, cardValue: number | null) => {
   const newCard = {
     mtgCardName: cardName,
     mtgCardType: cardType.map(type => type.toUpperCase()),
@@ -47,7 +47,7 @@ export const frontendToBackendCardConverter = (cardName: string, cardType: MtgCa
 }
 
 export const addCardToInventory = (cardName: string, cardType: MtgCardTypesEnum[], cardEdition: string, cardValue: number | null, updateMtgInventory: (update: MtgCard[]) => void) => {
-  const newCard = frontendToBackendCardConverter(cardName, cardType, cardEdition, cardValue);
+  const newCard = cardSerializer(cardName, cardType, cardEdition, cardValue);
 
   try {
     const putCard = async () => {

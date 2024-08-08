@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -116,7 +116,9 @@ const Inventory = () => {
   const [rowSelection, setRowSelection] = React.useState({});
 
   const mtgInventory = useMtgInventoryStore();
-  fetchMtgInventory(mtgInventory.updateMtgInventory);
+  useEffect(() => {
+    fetchMtgInventory(mtgInventory.updateMtgInventory);
+  }, [])
 
   const data = mtgInventory.mtgInventory;
 
