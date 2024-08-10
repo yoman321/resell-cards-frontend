@@ -39,6 +39,7 @@ import {
   MTG_CARD_EDITION_STRING, MTG_CARD_VALUE,
 } from '../configs/GlobalVars.tsx'
 import { useMtgInventoryStore, fetchMtgInventory } from "@/features/mtg-inventory-feature/stores/MtgInventoryStore.tsx";
+import { string } from "prop-types";
 
 
 const columns: ColumnDef<MtgCard>[] = [
@@ -82,7 +83,7 @@ const columns: ColumnDef<MtgCard>[] = [
   {
     accessorKey: MTG_CARD_TYPE_STRING,
     header: "Type",
-    cell: ({ row }) => <div>{row.getValue(MTG_CARD_TYPE_STRING)}</div>,
+    cell: ({ row }) => <div>{(row.getValue(MTG_CARD_TYPE_STRING) as string[]).join(" ")}</div>
   },
   {
     accessorKey: MTG_CARD_EDITION_STRING,

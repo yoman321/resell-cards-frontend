@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-import { useEffect } from 'react';
 
 import { MtgCard } from '../types/MtgCardTypes.tsx';
 import { MtgCardTypesEnum } from '../enums/MtgCardEnums.tsx';
@@ -13,7 +12,7 @@ interface MtgInventoryState {
 const initialMtgInventoryStoreState: MtgCard[] = [
   {
     mtgCardName: "A Card Name",
-    mtgCardType: [MtgCardTypesEnum.ARTIFACT],
+    mtgCardType: [MtgCardTypesEnum.ARTIFACT, MtgCardTypesEnum.ENCHANTMENT, MtgCardTypesEnum.SORCERY],
     mtgCardEdition: "Some edition",
     mtgCardValue: 10
   }
