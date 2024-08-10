@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -38,7 +38,8 @@ import {
   MTG_CARD_NAME_STRING, MTG_CARD_TYPE_STRING,
   MTG_CARD_EDITION_STRING, MTG_CARD_VALUE,
 } from '../configs/GlobalVars.tsx'
-import { fetchMtgInventory } from "@/features/mtg-inventory-feature/stores/MtgInventoryStore.tsx";
+import { useMtgInventoryStore, fetchMtgInventory } from "@/features/mtg-inventory-feature/stores/MtgInventoryStore.tsx";
+import { string } from "prop-types";
 
 
 const columns: ColumnDef<MtgCard>[] = [
@@ -82,7 +83,7 @@ const columns: ColumnDef<MtgCard>[] = [
   {
     accessorKey: MTG_CARD_TYPE_STRING,
     header: "Type",
-    cell: ({ row }) => <div>{row.getValue(MTG_CARD_TYPE_STRING)}</div>,
+    cell: ({ row }) => <div>{(row.getValue(MTG_CARD_TYPE_STRING) as string[]).join(" ")}</div>
   },
   {
     accessorKey: MTG_CARD_EDITION_STRING,
@@ -115,7 +116,12 @@ const Inventory = () => {
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
-  const data = fetchMtgInventory();
+  const mtgInventory = useMtgInventoryStore();
+  useEffect(() => {
+    fetchMtgInventory(mtgInventory.updateMtgInventory);
+  }, [])
+
+  const data = mtgInventory.mtgInventory;
 
   const table = useReactTable({
     data,
