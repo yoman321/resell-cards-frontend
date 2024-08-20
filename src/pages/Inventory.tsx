@@ -39,7 +39,6 @@ import {
   MTG_CARD_EDITION_STRING, MTG_CARD_VALUE,
 } from '../configs/GlobalVars.tsx'
 import { useMtgInventoryStore, fetchMtgInventory } from "@/features/mtg-inventory-feature/stores/MtgInventoryStore.tsx";
-import { string } from "prop-types";
 
 
 const columns: ColumnDef<MtgCard>[] = [

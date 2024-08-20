@@ -10,7 +10,7 @@ import * as MtgInventoryStore from '../features/mtg-inventory-feature/stores/Mtg
 const dummyInventoryData: MtgCard[] = [
   {
     mtgCardName: "Some dummy card name",
-    mtgCardType: MtgCardTypesEnum.ENCHANTMENT,
+    mtgCardType: [MtgCardTypesEnum.ENCHANTMENT],
     mtgCardEdition: "Oldest Edition",
     mtgCardValue: 10
   }
@@ -18,23 +18,28 @@ const dummyInventoryData: MtgCard[] = [
 
 
 beforeEach(() => {
-  vi.spyOn(MtgInventoryStore, "fetchMtgInventory").mockReturnValue(dummyInventoryData);
+  vi.spyOn(MtgInventoryStore, "fetchMtgInventory").mockReturnValue();
 })
 
 describe('testing the Inventory component', () => {
+  beforeEach(() => {
+    render(<Inventory />)
+  })
 
   it('should have dummy data on render of Inventory component', async () => {
-    render(<Inventory />);
-
     await waitFor(() => {
-      expect(screen.getByText("Oldest Edition")).toBeInTheDocument();
+      expect(screen.getByText("Some edition")).toBeInTheDocument();
     })
 
   })
 
-  it("should render the Add Card component", () => {
-    render(<Inventory />);
+  it('should display the card type as strings seperated by a space', async () => {
+    await waitFor(() => {
+      expect(screen.getByText("Artifact Enchantment Sorcery"))
+    })
+  })
 
+  it("should render the Add Card component", () => {
     const ResizeObserverMock = vi.fn(() => ({
       observe: vi.fn(),
       unobserve: vi.fn(),
