@@ -1,20 +1,11 @@
 import { waitFor, fireEvent, render, screen, } from '@testing-library/react';
 import { vi } from "vitest";
 
+
 import Inventory from './Inventory.tsx';
-import { MtgCardTypesEnum } from '../features/mtg-inventory-feature/enums/MtgCardEnums.tsx';
-import { MtgCard } from '../features/mtg-inventory-feature/types/MtgCardTypes.tsx';
 import * as MtgInventoryStore from '../features/mtg-inventory-feature/stores/MtgInventoryStore.tsx'
 
 
-const dummyInventoryData: MtgCard[] = [
-  {
-    mtgCardName: "Some dummy card name",
-    mtgCardType: [MtgCardTypesEnum.ENCHANTMENT],
-    mtgCardEdition: "Oldest Edition",
-    mtgCardValue: 10
-  }
-]
 
 
 beforeEach(() => {
@@ -57,3 +48,4 @@ describe('testing the Inventory component', () => {
     expect(screen.queryByText(dialogSubText)).toBeInTheDocument();
   })
 })
+

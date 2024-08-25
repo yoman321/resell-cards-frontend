@@ -71,7 +71,7 @@ const MtgInventoryAddCardsDialog = ({ className }: ClassNameProps) => {
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit" onClick={handleAddCardButton}>Save changes</Button>
+          <Button type="submit" onClick={handleAddCardButton} data-testid="saveCardButton">Save changes</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
