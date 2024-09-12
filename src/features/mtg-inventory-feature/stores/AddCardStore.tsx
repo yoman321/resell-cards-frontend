@@ -40,9 +40,6 @@ export const cardSerializer = (cardName: string, cardType: MtgCardTypesEnum[], c
     mtgCardValue: cardValue,
   };
 
-  ///test 
-  console.log(newCard);
-
   return newCard;
 }
 

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -11,6 +12,19 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLoginButton = () => {
+    try {
+      console.log("email:" + email)
+      console.log("password:" + password)
+    }
+    catch (e) {
+      console.log("Failed to login with: either wrong email or password")
+    }
+
+  }
   return (
     <div className="flex flex-wrap content-center">
       <Card className="w-[350px]">
@@ -31,6 +45,7 @@ const Login = () => {
                   id="email"
                   placeholder="Your Email"
                   type="email"
+                  onChange={e => setEmail(e.target.value)}
                   required
                 />
               </div>
@@ -42,6 +57,7 @@ const Login = () => {
                   id="password"
                   placeholder="Your Password"
                   type="password"
+                  onChange={e => setPassword(e.target.value)}
                   required
                 />
               </div>
@@ -50,7 +66,7 @@ const Login = () => {
         </CardContent>
         <CardFooter className="flex justify-between">
           <Button variant="outline">Cancel</Button>
-          <Button>Login</Button>
+          <Button onClick={handleLoginButton}>Login</Button>
         </CardFooter>
       </Card>
     </div>
